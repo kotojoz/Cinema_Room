@@ -1,33 +1,97 @@
 package main.cinema;
 
-import java.util.Scanner;
+import java.util.Arrays;
 
 public class Cinema {
-    private static final int frontSeatsPrice = 10;
-    private static final int backSeatsPrice = 8;
-    public static Scanner scanner = new Scanner(System.in);
+    private final int ROWS;
 
-    public static int countIncome(int rows, int seats, int price) {
-        return rows * seats * price;
+    private final int SEATS_IN_ROW;
+
+    private final int FRONT_SEATS_PRICE = 10;
+
+    private final int BACK_SEATS_PRICE = 8;
+
+    private final int totalSeats;
+
+    private final int totalIncome;
+
+    private char[][] cinema;
+
+    public int getTotalIncome() {
+        return totalIncome;
     }
 
-    public static int countTotalIncome(int numberOfRows, int numberOfSeats) {
-        if (numberOfSeats * numberOfRows <= 60) {
-            return countIncome(numberOfRows, numberOfSeats, frontSeatsPrice);
-        } else {
-            int frontHalf = numberOfRows / 2;
-            int backHalf = numberOfRows - frontHalf;
-            return countIncome(frontHalf, numberOfSeats, frontSeatsPrice)
-                    + countIncome(backHalf, numberOfSeats, backSeatsPrice);
+    public Cinema(int rows, int seatsInRow) {
+        this.ROWS = rows;
+        this.SEATS_IN_ROW = seatsInRow;
+        this.totalSeats = ROWS * SEATS_IN_ROW;
+        this.totalIncome = calculateTotalIncome();
+        createCinema();
+    }
+
+    //Create 2 dimension array and fill it with 'S'
+    private void createCinema() {
+        cinema = new char[ROWS][SEATS_IN_ROW];
+        for (char[] rows : cinema) {
+            Arrays.fill(rows, 'S');
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println("Enter the number of rows:");
-        int numberOfRows = scanner.nextInt();
-        System.out.println("Enter the number of seats in each row:");
-        int numberOfSeats = scanner.nextInt();
-        System.out.println("Total income:");
-        System.out.println("$" + countTotalIncome(numberOfRows, numberOfSeats));
+    public int calculateTotalIncome() {
+        if (totalSeats <= 60) {
+            return ROWS * SEATS_IN_ROW * FRONT_SEATS_PRICE;
+        } else {
+            int frontHalf = ROWS / 2;
+            int backHalf = ROWS - frontHalf;
+            return frontHalf * SEATS_IN_ROW * FRONT_SEATS_PRICE +
+                    backHalf * SEATS_IN_ROW * BACK_SEATS_PRICE;
+        }
+    }
+
+    //Calculate price for  the row
+    public int calculatePrice(int row) {
+        if (totalSeats <= 60) {
+            return FRONT_SEATS_PRICE;
+        } else {
+            if (row <= ROWS / 2) {
+                return FRONT_SEATS_PRICE;
+            } else {
+                return BACK_SEATS_PRICE;
+            }
+        }
+    }
+
+    public void buyTicket() {
+        while (true) {
+            int row = Inputs.enterRowNumber();
+            int seat = Inputs.enterSeatNumber();
+
+            if (row > ROWS || seat > SEATS_IN_ROW) {
+                System.out.println("Wrong input!");
+            } else if (cinema[row - 1][seat - 1] == 'B') {
+                System.out.println("That ticket has already been purchased!");
+            } else {
+                cinema[row - 1][seat - 1] = 'B';
+                System.out.printf("\n Ticket price: $%d\n", calculatePrice(row));
+                break;
+            }
+        }
+    }
+
+
+    public void printCinema() {
+        System.out.println("\nCinema:");
+        System.out.print(" ");
+        for (int i = 1; i <= SEATS_IN_ROW; i++) {
+            System.out.print(" " + i);
+        }
+        System.out.println();
+        for (int i = 0; i < cinema.length; i++) {
+            System.out.print(i + 1 + " ");
+            for (int j = 0; j < cinema[i].length; j++) {
+                System.out.print(cinema[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 }
