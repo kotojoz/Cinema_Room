@@ -72,7 +72,7 @@ public class Cinema {
                 System.out.println("That ticket has already been purchased!");
             } else {
                 cinema[row - 1][seat - 1] = 'B';
-                System.out.printf("\n Ticket price: $%d\n", calculatePrice(row));
+                System.out.printf("\nTicket price: $%d\n", calculatePrice(row));
                 break;
             }
         }

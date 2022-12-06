@@ -4,31 +4,34 @@ import java.util.Scanner;
 
 public class Inputs {
 
+    private final static Scanner scanner = new Scanner(System.in);
+
     public static int enterRowsCount() {
         System.out.println("Enter the number of rows:");
-        try (Scanner scanner = new Scanner(System.in)) {
-            return scanner.nextInt();
-        }
+        return scanner.nextInt();
     }
 
     public static int enterSeatsCount() {
         System.out.println("Enter the number of seats in each row:");
-        try (Scanner scanner = new Scanner(System.in)) {
-            return scanner.nextInt();
-        }
+        return scanner.nextInt();
     }
 
     public static int enterRowNumber() {
         System.out.println("Enter a row number:");
-        try (Scanner scanner = new Scanner(System.in)) {
-            return scanner.nextInt();
-        }
+        return scanner.nextInt();
     }
 
     public static int enterSeatNumber() {
         System.out.println("Enter a seat number in that row:");
-        try (Scanner scanner = new Scanner(System.in)) {
-            return scanner.nextInt();
-        }
+        return scanner.nextInt();
+    }
+
+    public static int enterCommand() {
+        System.out.println("""
+
+                1. Show the seats
+                2. Buy a ticket
+                0. Exit""");
+        return scanner.nextInt();
     }
 }
