@@ -6,9 +6,12 @@ public class Application {
     private static void mainMenu() {
         int rows = Inputs.enterRowsCount();
         int seats = Inputs.enterSeatsCount();
+
         Cinema cinema = new Cinema(rows, seats);
+
         while (isWorking) {
             int command = Inputs.enterCommand();
+
             switch (command) {
                 case 1 -> cinema.printCinema();
                 case 2 -> cinema.buyTicket();
