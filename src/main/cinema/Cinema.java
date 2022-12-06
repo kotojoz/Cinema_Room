@@ -21,9 +21,6 @@ public class Cinema {
 
     private char[][] cinema;
 
-    public int getTotalIncome() {
-        return totalIncome;
-    }
 
     public Cinema(int rows, int seatsInRow) {
         this.ROWS = rows;
