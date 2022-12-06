@@ -15,6 +15,7 @@ public class Application {
             switch (command) {
                 case 1 -> cinema.printCinema();
                 case 2 -> cinema.buyTicket();
+                case 3 -> cinema.showStatistics();
                 case 0 -> isWorking = false;
             }
         }

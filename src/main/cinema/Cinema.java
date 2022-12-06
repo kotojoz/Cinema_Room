@@ -15,6 +15,10 @@ public class Cinema {
 
     private final int totalIncome;
 
+    private int currentIncome;
+
+    private int purchasedTickets;
+
     private char[][] cinema;
 
     public int getTotalIncome() {
@@ -26,6 +30,8 @@ public class Cinema {
         this.SEATS_IN_ROW = seatsInRow;
         this.totalSeats = ROWS * SEATS_IN_ROW;
         this.totalIncome = calculateTotalIncome();
+        this.currentIncome = 0;
+        this.purchasedTickets = 0;
         createCinema();
     }
 
@@ -72,12 +78,13 @@ public class Cinema {
                 System.out.println("That ticket has already been purchased!");
             } else {
                 cinema[row - 1][seat - 1] = 'B';
-                System.out.printf("\nTicket price: $%d\n", calculatePrice(row));
+                currentIncome += calculatePrice(row);
+                purchasedTickets++;
+                System.out.printf("\n Ticket price: $%d\n", calculatePrice(row));
                 break;
             }
         }
     }
-
 
     public void printCinema() {
         System.out.println("\nCinema:");
@@ -93,5 +100,20 @@ public class Cinema {
             }
             System.out.println();
         }
+    }
+
+    public double calculatePercentage() {
+        if (purchasedTickets == 0) {
+            return 0.00;
+        } else {
+            return (purchasedTickets * 100d) / totalSeats;
+        }
+    }
+
+    public void showStatistics() {
+        System.out.printf("\nNumber of purchased tickets: %d\n", purchasedTickets);
+        System.out.printf("Percentage: %.2f%%\n", calculatePercentage());
+        System.out.printf("Current income: $%d\n", currentIncome);
+        System.out.printf("Total income: $%d\n", totalIncome);
     }
 }

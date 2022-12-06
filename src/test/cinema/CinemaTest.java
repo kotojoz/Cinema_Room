@@ -40,4 +40,9 @@ class CinemaTest {
     public void testTotalIncomeBigCinema() {
         assertEquals(560, bigCinema.calculateTotalIncome());
     }
+
+    @Test
+    public void testCalculatePercentage(){
+        assertEquals(0.00, smallCinema.calculatePercentage());
+    }
 }

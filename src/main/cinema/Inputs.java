@@ -31,6 +31,7 @@ public class Inputs {
 
                 1. Show the seats
                 2. Buy a ticket
+                3. Statistics
                 0. Exit""");
         return scanner.nextInt();
     }
